@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+set -e
+
+APP_NAME=$1
+
+if [ -z "$APP_NAME" ]; then
+  echo "Usage: go-mk <project-name>"
+  exit 1
+fi
+
+mkdir -p "$APP_NAME/internal"
+cd "$APP_NAME"
+
+# --- main.go ---
+cat <<EOF > main.go
+package main
+
+import (
+    "log"
+    "$APP_NAME/internal"
+)
+
+func main() {
+    log.Println("🚀 Starting server on :8080")
+    if err := internal.StartServer(":8080"); err != nil {
+        log.Fatalf("Server failed: %v", err)
+    }
+}
+EOF
+
+# --- internal/server.go ---
+cat <<EOF > internal/server.go
+package internal
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func StartServer(port string) error {
+    mux := http.NewServeMux()
+
+    mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+        w.WriteHeader(http.StatusOK)
+        fmt.Fprintln(w, "ok")
+    })
+
+    return http.ListenAndServe(port, mux)
+}
+EOF
+
+# --- go.mod ---
+cat <<EOF > go.mod
+module $APP_NAME
+
+go 1.22
+EOF
+
+# --- README.md ---
+cat <<EOF > README.md
+# $APP_NAME
+
+簡易バックエンドAPI（Go）
+
+## 起動
+
+\`\`\`bash
+go run main.go
+\`\`\`
+
+## エンドポイント
+
+- \`GET /health\` → 200 OK
+EOF
+
+echo "🎉 Go backend project '$APP_NAME' created!"
