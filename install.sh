@@ -8,8 +8,10 @@ mkdir -p "$BIN_DIR"
 TOOLS=(
   "go-mk"
 )
-  # "docker-mk 開発中"
-  # "devcontainer-mk　開発中"
+
+# 開発中
+# "docker-mk"
+# "devcontainer-mk"
 
 REPO_URL="https://raw.githubusercontent.com/caf112/pj-mk/main"
 
