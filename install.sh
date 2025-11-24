@@ -26,6 +26,23 @@ for tool in "${TOOLS[@]}"; do
   echo
 done
 
-echo "🎉 全てのCLIのインストールが完了しました！"
-echo "PATH に $BIN_DIR が入っていれば以下のコマンドが使えます:"
-printf '  %s\n' "${TOOLS[@]}"
+echo
+echo "📝 Usage:"
+if [[ " ${TOOLS[*]} " == *" go-mk "* ]]; then
+  echo "  go-mk <project-name>     # Go プロジェクト生成"
+fi
+if [[ " ${TOOLS[*]} " == *" docker-mk "* ]]; then
+  echo "  docker-mk <project-name> # Dockerfile生成"
+fi
+if [[ " ${TOOLS[*]} " == *" devcontainer-mk "* ]]; then
+  echo "  devcontainer-mk <name>   # DevContainer生成"
+fi
+
+echo
+echo "例:"
+if [[ " ${TOOLS[*]} " == *" go-mk "* ]]; then
+  echo "  go-mk myapp"
+fi
+
+echo
+echo "※ PATH に $BIN_DIR が入っている必要があります。"

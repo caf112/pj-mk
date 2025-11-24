@@ -33,7 +33,7 @@ curl -fsSL https://raw.githubusercontent.com/caf112/pj-mk/main/install.sh | bash
 ## 🛠 利用方法
 ## ▶ Go プロジェクト作成
 ```
-go-mk ${YOUR_DIR}
+go-mk <project-name>
 ```
 生成される構成：
 ```
