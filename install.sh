@@ -7,8 +7,8 @@ mkdir -p "$BIN_DIR"
 # インストール対象の CLI 名を配列で管理
 TOOLS=(
   "go-mk"
-  "docker-mk"
-  "devcontainer-mk"
+  # "docker-mk 開発中"
+  # "devcontainer-mk　開発中"
 )
 
 REPO_URL="https://raw.githubusercontent.com/caf112/pj-mk/main"
