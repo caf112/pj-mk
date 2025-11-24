@@ -4,10 +4,26 @@ set -e
 BIN_DIR="$HOME/.local/bin"
 mkdir -p "$BIN_DIR"
 
-curl -fsSL https://raw.githubusercontent.com/caf112/pj-mk/main/go-mk \
-  -o "$BIN_DIR/go-mk"
+# インストール対象の CLI 名を配列で管理
+TOOLS=(
+  "go-mk"
+  "docker-mk"
+  "devcontainer-mk"
+)
 
-chmod +x "$BIN_DIR/go-mk"
+REPO_URL="https://raw.githubusercontent.com/caf112/pj-mk/main"
 
-echo "インストール完了！ PATH に $BIN_DIR が入っていれば以下で使えます:"
-echo "  go-mk"
+echo "🛠 CLI tools installing into: $BIN_DIR"
+echo
+
+for tool in "${TOOLS[@]}"; do
+  echo "⏳ Installing $tool ..."
+  curl -fsSL "$REPO_URL/$tool" -o "$BIN_DIR/$tool"
+  chmod +x "$BIN_DIR/$tool"
+  echo "✅ Installed: $tool"
+  echo
+done
+
+echo "🎉 全てのCLIのインストールが完了しました！"
+echo "PATH に $BIN_DIR が入っていれば以下のコマンドが使えます:"
+printf '  %s\n' "${TOOLS[@]}"
